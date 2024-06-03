@@ -6,17 +6,13 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { FormInput } from "./FormInput";
 
-export type ProfileFormData = {
-  username: string;
-  email: string;
-  profileUrl: string;
-};
-
 const schema = z.object({
   username: z.string().min(4, "名前は4文字以上で入力してください"),
   email: z.string().email("正しいメールアドレスを入力してください"),
   profileUrl: z.string().url("正しいURLを入力してください"),
 });
+
+export type ProfileFormData = z.infer<typeof schema>;
 
 export const ProfileForm = () => {
   const form = useForm<ProfileFormData>({
@@ -65,7 +61,7 @@ export const ProfileForm = () => {
           )}
         />
         <Button type="submit" className="w-full">
-          Submit
+          送信
         </Button>
       </form>
     </Form>
